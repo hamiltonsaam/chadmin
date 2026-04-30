@@ -83,6 +83,7 @@ if (!function_exists('filing_nav_url')) {
     <!-- App CSS -->
     <link rel="stylesheet" href="style.css?v=3.3">
     <link rel="stylesheet" href="/chadmin/views/theme/assets/css/styles.css?v=3.3">
+    <link rel="stylesheet" href="/chadmin/views/theme/assets/css/filing-extras.css?v=3.3">
 
     <style>
     body.company-page {
