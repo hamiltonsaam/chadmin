@@ -8,11 +8,6 @@
 $pageTitle  = 'Admin Dashboard';
 $activeLink = 'admin-dashboard.php';
 
-// ── Replace with your real DB queries ───────────────────
-// $stats      = getSystemStats();
-// $activityLog = getRecentActivityLog(10);
-// $userStats  = getUserStats();
-
 // Sample data — remove when using real queries
 $stats = [
     'total_companies' => 14205,
@@ -22,30 +17,28 @@ $stats = [
 ];
 
 $activityLog = [
-    ['timestamp' => '2026-04-23 09:47', 'event' => 'Bulk Filing Ingestion',    'actor' => 'System Process',    'status' => 'Success'],
-    ['timestamp' => '2026-04-23 09:43', 'event' => 'Admin Login',              'actor' => 'user.ch-99210',     'status' => 'Success'],
-    ['timestamp' => '2026-04-23 09:31', 'event' => 'API Rate Limit Exceeded',  'actor' => 'External Partner A','status' => 'Warning'],
-    ['timestamp' => '2026-04-23 09:15', 'event' => 'Database Sync',            'actor' => 'System Process',    'status' => 'Success'],
-    ['timestamp' => '2026-04-23 08:58', 'event' => 'New User Registration',    'actor' => 'user.ch-10045',     'status' => 'Success'],
-    ['timestamp' => '2026-04-23 08:44', 'event' => 'Failed Login Attempt',     'actor' => 'Unknown',           'status' => 'Error'],
-    ['timestamp' => '2026-04-23 08:30', 'event' => 'Scheduled Report Generated','actor'=> 'System Process',   'status' => 'Success'],
-    ['timestamp' => '2026-04-23 08:12', 'event' => 'Account Locked',           'actor' => 'user.ch-00391',     'status' => 'Warning'],
+    ['timestamp' => '2026-04-23 09:47', 'event' => 'Bulk Filing Ingestion',     'actor' => 'System Process',     'status' => 'Success'],
+    ['timestamp' => '2026-04-23 09:43', 'event' => 'Admin Login',               'actor' => 'user.ch-99210',      'status' => 'Success'],
+    ['timestamp' => '2026-04-23 09:31', 'event' => 'API Rate Limit Exceeded',   'actor' => 'External Partner A', 'status' => 'Warning'],
+    ['timestamp' => '2026-04-23 09:15', 'event' => 'Database Sync',             'actor' => 'System Process',     'status' => 'Success'],
+    ['timestamp' => '2026-04-23 08:58', 'event' => 'New User Registration',     'actor' => 'user.ch-10045',      'status' => 'Success'],
+    ['timestamp' => '2026-04-23 08:44', 'event' => 'Failed Login Attempt',      'actor' => 'Unknown',            'status' => 'Error'],
+    ['timestamp' => '2026-04-23 08:30', 'event' => 'Scheduled Report Generated','actor' => 'System Process',     'status' => 'Success'],
+    ['timestamp' => '2026-04-23 08:12', 'event' => 'Account Locked',            'actor' => 'user.ch-00391',      'status' => 'Warning'],
 ];
 
 $userStats = [
-    'internal_admins'       => 142,
-    'external_presenters'   => 45920,
-    'locked_accounts'       => 38,
+    'internal_admins'     => 142,
+    'external_presenters' => 45920,
+    'locked_accounts'     => 38,
 ];
 
-// Status → CSS class map for activity log
 $logStatusClass = [
     'Success' => 'log-success',
     'Warning' => 'log-warning',
     'Error'   => 'log-error',
 ];
 
-// Status → icon map
 $logStatusIcon = [
     'Success' => 'check_circle',
     'Warning' => 'warning',
@@ -56,18 +49,14 @@ include __DIR__ . '/header.php';
 ?>
 
 
-<!-- ═══════════════════════════════════════
-     PAGE HEADER
-═══════════════════════════════════════ -->
+<!-- PAGE HEADER -->
 <div class="page-header">
   <h1>Admin Dashboard</h1>
   <p>System-wide overview of filings, compliance activity and user administration.</p>
 </div>
 
 
-<!-- ═══════════════════════════════════════
-     SYSTEM STAT CARDS
-═══════════════════════════════════════ -->
+<!-- SYSTEM STAT CARDS -->
 <div class="stat-grid">
 
   <div class="stat-card">
@@ -97,13 +86,11 @@ include __DIR__ . '/header.php';
 </div>
 
 
-<!-- ═══════════════════════════════════════
-     TWO-COLUMN: Activity Log + User Admin
-═══════════════════════════════════════ -->
-<div style="display:grid; grid-template-columns: 1fr 300px; gap: var(--space-6); align-items: start;">
+<!-- TWO-COLUMN: Activity Log + User Admin -->
+<div class="dashboard-grid" style="align-items:start;">
 
 
-  <!-- ── LEFT: System Activity Log ── -->
+  <!-- LEFT: System Activity Log -->
   <div class="table-container">
 
     <div style="display:flex; align-items:center; justify-content:space-between;
@@ -159,10 +146,9 @@ include __DIR__ . '/header.php';
   </div><!-- /.table-container (log) -->
 
 
-  <!-- ── RIGHT: User Administration ── -->
+  <!-- RIGHT: User Administration -->
   <div style="display:flex; flex-direction:column; gap: var(--space-4);">
 
-    <!-- User stats card -->
     <div class="card">
       <div class="card-title-row">
         <span class="material-symbols-outlined card-icon">admin_panel_settings</span>
@@ -223,7 +209,6 @@ include __DIR__ . '/header.php';
 
       </div><!-- /.user stat rows -->
 
-      <!-- Quick action buttons -->
       <div style="display:flex; flex-direction:column; gap: var(--space-2); margin-top: var(--space-6);">
         <a href="user-management.php" class="btn btn-primary btn-full">
           <span class="material-symbols-outlined" style="font-size:18px;">group</span>
@@ -235,9 +220,8 @@ include __DIR__ . '/header.php';
         </a>
       </div>
 
-    </div><!-- /.card (user admin) -->
+    </div><!-- /.card -->
 
-    <!-- System health notice -->
     <div class="card" style="background: var(--surface-container-low); border-color: var(--outline-variant);">
       <div style="display:flex; gap: var(--space-3); align-items:flex-start;">
         <span class="material-symbols-outlined" style="color:#137333; font-size:22px; flex-shrink:0; margin-top:2px;
@@ -257,7 +241,7 @@ include __DIR__ . '/header.php';
 
   </div><!-- /.right column -->
 
-</div><!-- /.two-column grid -->
+</div><!-- /.dashboard-grid -->
 
 
 <?php include __DIR__ . '/footer.php'; ?>

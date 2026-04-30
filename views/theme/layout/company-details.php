@@ -1,25 +1,15 @@
 <?php
-// ── Session start (if not already started) ──────────────
 if (session_status() === PHP_SESSION_NONE) session_start();
 
-// ── Get company ID from URL ──────────────────────────────
 $companyId = trim($_GET['id'] ?? '');
 if (empty($companyId)) {
     header('Location: /chadmin/views/theme/layout/managed-companies.php');
     exit;
 }
 
-// ── Section routing ──────────────────────────────────────
 $section       = $_GET['section'] ?? 'overview';
 $validSections = ['overview','filings','officers','psc','address'];
 if (!in_array($section, $validSections)) $section = 'overview';
-
-// ── Replace with your real DB queries ───────────────────
-// $company  = getCompanyById($companyId);
-// $officers = getOfficers($companyId);
-// $pscs     = getPSCs($companyId);
-// $filings  = getRecentFilings($companyId, 5);
-// if (!$company) { header('Location: managed-companies.php'); exit; }
 
 // Sample data — replace with real DB data
 $company = [
@@ -54,25 +44,18 @@ $pscs = [
 ];
 
 $filings = [
-    ['date' => '20 Dec 2024', 'description' => 'Full accounts made up to 31 March 2024',              'form' => 'AA'],
+    ['date' => '20 Dec 2024', 'description' => 'Full accounts made up to 31 March 2024',                   'form' => 'AA'],
     ['date' => '15 Apr 2024', 'description' => 'Confirmation statement made on 31 March 2024 with updates', 'form' => 'CS01'],
-    ['date' => '02 Nov 2023', 'description' => 'Change of registered office address',                 'form' => 'AD01'],
-    ['date' => '18 Dec 2023', 'description' => 'Full accounts made up to 31 March 2023',              'form' => 'AA'],
-    ['date' => '10 Apr 2023', 'description' => 'Confirmation statement with no updates',              'form' => 'CS01'],
+    ['date' => '02 Nov 2023', 'description' => 'Change of registered office address',                       'form' => 'AD01'],
+    ['date' => '18 Dec 2023', 'description' => 'Full accounts made up to 31 March 2023',                   'form' => 'AA'],
+    ['date' => '10 Apr 2023', 'description' => 'Confirmation statement with no updates',                    'form' => 'CS01'],
 ];
 
-// Badge map
-$badgeMap = [
-    'Active'      => 'badge-active',
-    'Dissolved'   => 'badge-dissolved',
-    'Liquidation' => 'badge-liquidation',
-    'Dormant'     => 'badge-dormant',
-];
+$badgeMap    = ['Active'=>'badge-active','Dissolved'=>'badge-dissolved','Liquidation'=>'badge-liquidation','Dormant'=>'badge-dormant'];
 $statusBadge = $badgeMap[$company['status']] ?? 'badge-neutral';
 
-// Vars used by sidebar.php / topbar.php
-$userId  = $_SESSION['user_id'] ?? 'CH-99210';
-$isAdmin = !empty($_SESSION['is_admin']);
+$userId    = $_SESSION['user_id'] ?? 'CH-99210';
+$isAdmin   = !empty($_SESSION['is_admin']);
 $pageTitle = $company['name'];
 ?><!DOCTYPE html>
 <html lang="en">
@@ -85,7 +68,8 @@ $pageTitle = $company['name'];
   <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
   <link rel="stylesheet" href="/chadmin/views/theme/assets/css/styles.css" />
-   <style>
+  <link rel="stylesheet" href="/chadmin/views/theme/assets/css/mobile.css" />
+  <style>
     body.company-page {
       display: block !important;
       overflow-y: auto !important;
@@ -95,13 +79,10 @@ $pageTitle = $company['name'];
 </head>
 <body class="company-page">
 
-<?php // include __DIR__ . '/sidebar.php'; ?>
 <?php include __DIR__ . '/topbar.php'; ?>
 
 
-<!-- ═══════════════════════════════════════
-     COMPANY SECONDARY SIDEBAR
-═══════════════════════════════════════ -->
+<!-- COMPANY SECONDARY SIDEBAR -->
 <nav class="company-sidebar" aria-label="Company navigation">
 
   <div class="company-sidebar-top">
@@ -141,9 +122,7 @@ $pageTitle = $company['name'];
 </nav>
 
 
-<!-- ═══════════════════════════════════════
-     MAIN CONTENT
-═══════════════════════════════════════ -->
+<!-- MAIN CONTENT -->
 <main class="company-main">
 <div class="company-content">
 
@@ -169,12 +148,11 @@ $pageTitle = $company['name'];
 
 
   <?php if ($section === 'overview'): ?>
-  <!-- ═══════ OVERVIEW ═══════ -->
+  <!-- OVERVIEW -->
   <div class="company-layout">
 
     <div class="company-primary">
 
-      <!-- Company Details -->
       <div class="card">
         <div class="card-title-row">
           <span class="material-symbols-outlined card-icon">info</span>
@@ -202,7 +180,6 @@ $pageTitle = $company['name'];
         </div>
       </div>
 
-      <!-- Accounts + Confirmation Statement -->
       <div class="panels-grid">
 
         <div class="card">
@@ -237,7 +214,6 @@ $pageTitle = $company['name'];
 
       </div>
 
-      <!-- Recent Filings -->
       <div class="card card-flush">
         <div class="card-flush-header card-title-row">
           <span class="material-symbols-outlined card-icon">folder_open</span>
@@ -282,7 +258,6 @@ $pageTitle = $company['name'];
 
     <div class="company-secondary">
 
-      <!-- Registered Address -->
       <div class="card office-card card-flush">
         <div class="office-hero">
           <span class="material-symbols-outlined office-hero-icon">location_city</span>
@@ -307,7 +282,6 @@ $pageTitle = $company['name'];
         </div>
       </div>
 
-      <!-- Officers -->
       <div class="card">
         <div class="card-title-row">
           <span class="material-symbols-outlined card-icon">manage_accounts</span>
@@ -327,7 +301,6 @@ $pageTitle = $company['name'];
         </ul>
       </div>
 
-      <!-- PSC -->
       <div class="card">
         <div class="card-title-row">
           <span class="material-symbols-outlined card-icon">verified_user</span>
@@ -353,7 +326,6 @@ $pageTitle = $company['name'];
 
 
   <?php elseif ($section === 'filings'): ?>
-  <!-- ═══════ FILINGS ═══════ -->
   <div class="card card-flush">
     <div class="card-flush-header card-title-row">
       <span class="material-symbols-outlined card-icon">description</span>
@@ -390,7 +362,6 @@ $pageTitle = $company['name'];
 
 
   <?php elseif ($section === 'officers'): ?>
-  <!-- ═══════ OFFICERS ═══════ -->
   <div class="card">
     <div class="card-title-row">
       <span class="material-symbols-outlined card-icon">manage_accounts</span>
@@ -412,7 +383,6 @@ $pageTitle = $company['name'];
 
 
   <?php elseif ($section === 'psc'): ?>
-  <!-- ═══════ PSC ═══════ -->
   <div class="card">
     <div class="card-title-row">
       <span class="material-symbols-outlined card-icon">verified_user</span>
@@ -434,7 +404,6 @@ $pageTitle = $company['name'];
 
 
   <?php elseif ($section === 'address'): ?>
-  <!-- ═══════ ADDRESS ═══════ -->
   <div class="card office-card card-flush" style="max-width:480px;">
     <div class="office-hero">
       <span class="material-symbols-outlined office-hero-icon">location_city</span>
@@ -466,7 +435,8 @@ $pageTitle = $company['name'];
 </div><!-- /.company-content -->
 </main>
 
-<footer class="footer" style="margin-left: calc(var(--sidebar-width) + 220px);">
+<!-- Footer: no inline margin — mobile.css resets it -->
+<footer class="footer company-footer">
   <span class="footer-copy">AAA WEB-FILING</span>
   <span>&copy; <?= date('Y') ?> Companies House &nbsp;·&nbsp;
     <a href="/chadmin/views/theme/layout/privacy.php" style="color:var(--on-surface-variant);">Privacy</a>

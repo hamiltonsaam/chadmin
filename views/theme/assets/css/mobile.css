@@ -26,6 +26,20 @@
   justify-content: center;
 }
 
+/* ── Company-details footer: offset to clear both sidebars on desktop ── */
+.company-footer {
+  margin-left: calc(var(--sidebar-width, 260px) + 220px);
+}
+
+/* ── Company header row: title + status badge ── */
+.company-header-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
 /* ── Hamburger button (hidden on desktop) ── */
 .hamburger-btn {
   display: none;
@@ -105,6 +119,17 @@ body.dark .hamburger-btn:hover { background: rgba(255, 255, 255, 0.06); }
     margin-top: 0 !important;
   }
 
+  /* Company header row: stack status badge below title */
+  .company-header-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  /* Company footer: remove desktop offset */
+  .company-footer {
+    margin-left: 0 !important;
+  }
+
   /* Show hamburger & close button */
   .hamburger-btn,
   .sidebar-close-btn { display: flex; }
@@ -130,7 +155,7 @@ body.dark .hamburger-btn:hover { background: rgba(255, 255, 255, 0.06); }
     margin-left: 0 !important;
   }
 
-  /* Topbar: compact, add gap for hamburger */
+  /* Topbar: compact */
   .topbar {
     padding: 0 var(--space-3);
     gap: var(--space-2);
@@ -204,18 +229,19 @@ body.dark .hamburger-btn:hover { background: rgba(255, 255, 255, 0.06); }
     gap: var(--space-2);
   }
 
-  /* Login: single column */
-  .login-right { display: none; }
-  .login-left  { padding: var(--space-8) var(--space-5); }
-  .login-box   { max-width: 100%; }
-
-  /* Footer: stack */
+  /* Footer: stack, no margin */
   .footer {
     flex-direction: column;
     gap: var(--space-1);
     text-align: center;
     padding: var(--space-3) var(--space-4);
+    margin-left: 0 !important;
   }
+
+  /* Login: single column */
+  .login-right { display: none; }
+  .login-left  { padding: var(--space-8) var(--space-5); }
+  .login-box   { max-width: 100%; }
 }
 
 /* ============================================================
@@ -246,6 +272,11 @@ body.dark .hamburger-btn:hover { background: rgba(255, 255, 255, 0.06); }
 
   /* Main content: reduced padding */
   .main-content { padding: var(--space-5); }
+
+  /* Company footer: adjust for tablet sidebar widths */
+  .company-footer {
+    margin-left: calc(220px + 180px);
+  }
 }
 
 /* ============================================================
