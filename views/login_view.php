@@ -3,6 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#003366" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#001e40" media="(prefers-color-scheme: dark)" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="A1A eFiling" />
+  <link rel="manifest" href="manifest.json" />
   <title>Sign In — <?= h((string) cfg('app_name')) ?></title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -10,14 +17,18 @@
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
   <link rel="stylesheet" href="views/theme/assets/css/styles.css" />
   <style>
-    body.login-page { display: block !important; overflow: hidden; }
+    /* Login page: block layout, allow scrolling on small screens */
+    body.login-page {
+      display: block !important;
+      overflow-y: auto;
+    }
   </style>
 </head>
 <body class="login-page">
 
 <div class="login-wrap">
 
-  <!-- ── Left: form ───────────────────────────────── -->
+  <!-- Left: form -->
   <div class="login-left">
     <div class="login-box">
 
@@ -83,6 +94,7 @@
             name="email"
             class="form-input"
             placeholder="you@example.com"
+            autocomplete="email"
             required
             autofocus
           />
@@ -95,7 +107,8 @@
             id="password"
             name="password"
             class="form-input"
-            placeholder="••••••••"
+            placeholder="\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022"
+            autocomplete="current-password"
             required
           />
         </div>
@@ -112,52 +125,14 @@
     </div>
   </div>
 
-  <!-- ── Right: branding panel ────────────────────── -->
+  <!-- Right: branding panel -->
   <div class="login-right">
     <p class="login-right-title">Manage your companies in one place</p>
-    <p class="login-right-text">Track filings, deadlines, officers and confirmation statements — synced live from Companies House.</p>
+    <p class="login-right-text">Track filings, deadlines, officers and confirmation statements &mdash; synced live from Companies House.</p>
   </div>
 
 </div>
 
 <script src="views/theme/assets/js/script.js" defer></script>
-</body>
-</html><!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>Login - <?= h((string) cfg('app_name')) ?></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-<div class="wrap wrap-login">
-    <h1>Login</h1>
-
-    <?php if ($flash): ?>
-        <div class="<?= $flash['type'] === 'error' ? 'flash-error' : 'flash-ok' ?>">
-            <?= h((string) $flash['message']) ?>
-        </div>
-    <?php endif; ?>
-
-    <?php if ($error): ?>
-        <div class="flash-error"><?= h($error) ?></div>
-    <?php endif; ?>
-
-    <form method="post" action="login.php">
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" required>
-        </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" required>
-        </div>
-        <button type="submit" class="btn">Login</button>
-    </form>
-    <p>
-        Don't have an account? <a href="register.php">Register here</a>.
-    </p>
-</div>
 </body>
 </html>
