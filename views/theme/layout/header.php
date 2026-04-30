@@ -1,27 +1,28 @@
 <?php
-// ── Guard: ensure required vars exist ──────────────────
+// ── Guard: ensure required vars exist ────────────────────
 if (!isset($pageTitle))  $pageTitle  = 'AAA WEB-FILING';
 if (!isset($activeLink)) $activeLink = '';
 
-// ── Session user vars ───────────────────────────────────
+// ── Session user vars ────────────────────────────────
 $userId  = $_SESSION['user_id']  ?? 'CH-99210';
 $isAdmin = !empty($_SESSION['is_admin']);
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#001e40" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="A1A eFiling" />
   <title><?= htmlspecialchars($pageTitle) ?> — AAA WEB-FILING</title>
 
-  <!-- PWA / Web App -->
-  <meta name="theme-color" content="#003366" media="(prefers-color-scheme: light)" />
-  <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <meta name="apple-mobile-web-app-title" content="AAA eFiling" />
-  <meta name="mobile-web-app-capable" content="yes" />
-  <meta name="application-name" content="AAA eFiling" />
+  <!-- PWA Manifest -->
   <link rel="manifest" href="/chadmin/manifest.json" />
+
+  <!-- Apple touch icon -->
+  <link rel="apple-touch-icon" href="/chadmin/views/theme/layout/logo.png" />
 
   <!-- Google Fonts: Public Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -31,9 +32,8 @@ $isAdmin = !empty($_SESSION['is_admin']);
   <!-- Material Symbols -->
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
 
-  <!-- Stylesheets -->
+  <!-- Stylesheet -->
   <link rel="stylesheet" href="/chadmin/views/theme/assets/css/styles.css" />
-  <link rel="stylesheet" href="/chadmin/views/theme/assets/css/mobile.css" />
 </head>
 <body>
 
