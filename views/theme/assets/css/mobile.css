@@ -3,6 +3,29 @@
    Breakpoints: mobile < 768px | tablet 768-1023px | desktop 1024px+
    ============================================================ */
 
+/* ── Dashboard: two-column grid (desktop default) ── */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: var(--space-6);
+}
+
+/* ── Page header row (title + CTA button side by side) ── */
+.page-header-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-6);
+}
+
+/* ── Full-width buttons ── */
+.btn-full {
+  width: 100%;
+  justify-content: center;
+}
+
 /* ── Hamburger button (hidden on desktop) ── */
 .hamburger-btn {
   display: none;
@@ -66,6 +89,22 @@ body.dark .hamburger-btn:hover { background: rgba(255, 255, 255, 0.06); }
    ============================================================ */
 @media (max-width: 767px) {
 
+  /* Dashboard: stack to single column */
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Page header row: stack button below title */
+  .page-header-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .page-header-row .btn {
+    width: 100%;
+    justify-content: center;
+    margin-top: 0 !important;
+  }
+
   /* Show hamburger & close button */
   .hamburger-btn,
   .sidebar-close-btn { display: flex; }
@@ -110,7 +149,7 @@ body.dark .hamburger-btn:hover { background: rgba(255, 255, 255, 0.06); }
     min-width: 0;
   }
 
-  /* Hide welcome greeting on very small screens */
+  /* Hide welcome greeting on small screens */
   .topbar-user-greet { display: none; }
 
   /* Main content: tighter padding */
@@ -124,11 +163,9 @@ body.dark .hamburger-btn:hover { background: rgba(255, 255, 255, 0.06); }
   .stat-value { font-size: 22px; }
 
   /* Company layout: stack to single column */
-  .company-layout {
-    grid-template-columns: 1fr;
-  }
-  .panels-grid  { grid-template-columns: 1fr; }
-  .detail-grid  { grid-template-columns: 1fr; }
+  .company-layout    { grid-template-columns: 1fr; }
+  .panels-grid       { grid-template-columns: 1fr; }
+  .detail-grid       { grid-template-columns: 1fr; }
 
   /* Company secondary sidebar: hide on mobile */
   .company-sidebar { display: none !important; }
@@ -142,12 +179,6 @@ body.dark .hamburger-btn:hover { background: rgba(255, 255, 255, 0.06); }
   .table-scroll {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-  }
-  /* Hint that table scrolls horizontally */
-  .table-scroll::after {
-    content: '';
-    display: block;
-    height: 0;
   }
 
   /* Filter bar: stack controls */
@@ -194,6 +225,11 @@ body.dark .hamburger-btn:hover { background: rgba(255, 255, 255, 0.06); }
 
   :root { --sidebar-width: 220px; }
 
+  /* Dashboard: narrower right panel on tablet */
+  .dashboard-grid {
+    grid-template-columns: 1fr 260px;
+  }
+
   /* Topbar search: narrower */
   .topbar-search { min-width: 160px; }
 
@@ -206,9 +242,7 @@ body.dark .hamburger-btn:hover { background: rgba(255, 255, 255, 0.06); }
 
   /* Company secondary sidebar: narrower */
   .company-sidebar { width: 180px; }
-  .company-main {
-    margin-left: calc(220px + 180px);
-  }
+  .company-main    { margin-left: calc(220px + 180px); }
 
   /* Main content: reduced padding */
   .main-content { padding: var(--space-5); }
@@ -225,7 +259,6 @@ body.dark .hamburger-btn:hover { background: rgba(255, 255, 255, 0.06); }
    PWA / STANDALONE MODE
    ============================================================ */
 @media (display-mode: standalone) {
-  /* Push topbar below status bar on iOS/Android */
   .topbar {
     padding-top: env(safe-area-inset-top, 0px);
     height: calc(var(--topbar-height) + env(safe-area-inset-top, 0px));
@@ -238,7 +271,7 @@ body.dark .hamburger-btn:hover { background: rgba(255, 255, 255, 0.06); }
   }
 }
 
-/* Safe area insets (notched phones — always apply) */
+/* Safe area insets (notched phones) */
 @supports (padding: env(safe-area-inset-bottom)) {
   .sidebar-footer {
     padding-bottom: calc(var(--space-4) + env(safe-area-inset-bottom));

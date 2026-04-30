@@ -7,17 +7,14 @@ include __DIR__ . '/header.php';
 ?>
 <?php ob_start(); ?>
 
-<!-- ═══════════════════════════════════════
-     PAGE HEADER + ADD COMPANY BUTTON
-═══════════════════════════════════════ -->
-<div style="display:flex; align-items:flex-start; justify-content:space-between; gap: var(--space-4); flex-wrap:wrap;">
+<!-- PAGE HEADER + ADD COMPANY BUTTON -->
+<div class="page-header-row">
 
   <div class="page-header" style="margin-bottom:0;">
     <h1>Welcome back, <?= htmlspecialchars($userId) ?></h1>
     <p>Manage your company filings and administrative tasks below.</p>
   </div>
 
-  <!-- Triggers the "Add Company" choice modal -->
   <button class="btn btn-primary" data-open-modal="modal-add-choice" style="flex-shrink:0; margin-top: var(--space-2);">
     <span class="material-symbols-outlined" style="font-size:18px;">add_business</span>
     Add a company to your portfolio
@@ -26,13 +23,10 @@ include __DIR__ . '/header.php';
 </div>
 
 
-<!-- ═══════════════════════════════════════
-     TWO-COLUMN LAYOUT: Stats+Todo LEFT | Quick Actions RIGHT
-═══════════════════════════════════════ -->
-<div style="display:grid; grid-template-columns: 1fr 320px; gap: var(--space-6);">
+<!-- TWO-COLUMN LAYOUT: Stats+Todo LEFT | Quick Actions RIGHT -->
+<div class="dashboard-grid">
 
-
-  <!-- ── LEFT COLUMN ── -->
+  <!-- LEFT COLUMN -->
   <div style="display:flex; flex-direction:column; gap: var(--space-6);">
 
     <!-- Stat cards -->
@@ -79,28 +73,27 @@ include __DIR__ . '/header.php';
 
       <ul class="todo-list">
         <?php
-        // Replace with your real query — e.g. getPendingTasks($userId)
         $todos = $todos ?? [
           [
-            'dot'     => 'todo-dot-red',
-            'label'   => 'Confirmation Statement — OVERDUE',
+            'dot'         => 'todo-dot-red',
+            'label'       => 'Confirmation Statement — OVERDUE',
             'label_class' => 'todo-label-overdue',
-            'company' => 'Acme Corp Ltd (01234567)',
-            'href'    => 'company-details.php?id=01234567',
+            'company'     => 'Acme Corp Ltd (01234567)',
+            'href'        => 'company-details.php?id=01234567',
           ],
           [
-            'dot'     => 'todo-dot-amber',
-            'label'   => 'Annual Accounts — DUE IN 14 DAYS',
+            'dot'         => 'todo-dot-amber',
+            'label'       => 'Annual Accounts — DUE IN 14 DAYS',
             'label_class' => 'todo-label-due',
-            'company' => 'Beta Holdings (09876543)',
-            'href'    => 'company-details.php?id=09876543',
+            'company'     => 'Beta Holdings (09876543)',
+            'href'        => 'company-details.php?id=09876543',
           ],
           [
-            'dot'     => 'todo-dot-grey',
-            'label'   => 'Update Director Details — DRAFT',
+            'dot'         => 'todo-dot-grey',
+            'label'       => 'Update Director Details — DRAFT',
             'label_class' => 'todo-label-draft',
-            'company' => 'Gamma Industries (11223344)',
-            'href'    => 'company-details.php?id=11223344',
+            'company'     => 'Gamma Industries (11223344)',
+            'href'        => 'company-details.php?id=11223344',
           ],
         ];
 
@@ -135,7 +128,7 @@ include __DIR__ . '/header.php';
   </div><!-- /.left column -->
 
 
-  <!-- ── RIGHT COLUMN: Quick Actions ── -->
+  <!-- RIGHT COLUMN: Quick Actions -->
   <div style="display:flex; flex-direction:column; gap: var(--space-4);">
 
     <div class="card">
@@ -164,7 +157,7 @@ include __DIR__ . '/header.php';
       </div>
     </div>
 
-    <!-- Notice / info card -->
+    <!-- Notice card -->
     <div class="card" style="background: var(--surface-container-low); border-color: var(--outline-variant);">
       <div style="display:flex; gap: var(--space-3); align-items:flex-start;">
         <span class="material-symbols-outlined" style="color: var(--primary-container); font-size:22px; flex-shrink:0; margin-top:2px;">info</span>
@@ -181,13 +174,10 @@ include __DIR__ . '/header.php';
 
   </div><!-- /.right column -->
 
-</div><!-- /.two-column grid -->
+</div><!-- /.dashboard-grid -->
 
 
-<!-- ═══════════════════════════════════════
-     MODAL 1: Add Company — Choice
-     (Manual entry vs Companies House search)
-═══════════════════════════════════════ -->
+<!-- MODAL 1: Add Company Choice -->
 <div class="modal-backdrop" id="modal-add-choice">
   <div class="modal" style="max-width:420px;">
     <div class="modal-header">
@@ -200,14 +190,10 @@ include __DIR__ . '/header.php';
       <p style="font-size: var(--text-body-sm); color: var(--on-surface-variant);">
         Enter details manually or search via Companies House.
       </p>
-
-      <!-- Search via CH -->
       <button class="btn btn-primary btn-full" data-close-modal="modal-add-choice" data-open-modal="modal-search">
         <span class="material-symbols-outlined" style="font-size:18px;">search</span>
         Search Companies House
       </button>
-
-      <!-- Manual entry -->
       <button class="btn btn-secondary btn-full" data-close-modal="modal-add-choice" data-open-modal="modal-manual">
         <span class="material-symbols-outlined" style="font-size:18px;">edit</span>
         Enter Details Manually
@@ -217,9 +203,7 @@ include __DIR__ . '/header.php';
 </div>
 
 
-<!-- ═══════════════════════════════════════
-     MODAL 2: Manual Entry
-═══════════════════════════════════════ -->
+<!-- MODAL 2: Manual Entry -->
 <div class="modal-backdrop" id="modal-manual">
   <div class="modal" style="max-width:480px;">
     <div class="modal-header">
@@ -271,9 +255,7 @@ include __DIR__ . '/header.php';
 </div>
 
 
-<!-- ═══════════════════════════════════════
-     MODAL 3: Companies House Search
-═══════════════════════════════════════ -->
+<!-- MODAL 3: Companies House Search -->
 <div class="modal-backdrop" id="modal-search">
   <div class="modal">
     <div class="modal-header">
@@ -284,7 +266,6 @@ include __DIR__ . '/header.php';
     </div>
     <div class="modal-body">
 
-      <!-- Search bar + status filter -->
       <div class="search-bar">
         <div class="input-wrap" style="flex:1;">
           <span class="material-symbols-outlined input-icon">search</span>
@@ -308,7 +289,6 @@ include __DIR__ . '/header.php';
         </div>
       </div>
 
-      <!-- Results table -->
       <div class="search-results-table">
         <div class="table-scroll">
           <table class="data-table" id="ch-results-table" style="display:none;">
