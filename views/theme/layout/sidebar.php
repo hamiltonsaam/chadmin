@@ -1,81 +1,76 @@
 <?php
-$userId  = $_SESSION['user_id'] ?? null;
+$userId  = $_SESSION['user_id']  ?? null;
 $isAdmin = !empty($_SESSION['is_admin']);
-
-$userDisplay = 'User';
-
-if ($userId) {
-    $stmt = db()->prepare("SELECT title, first_name FROM users WHERE id = :id LIMIT 1");
-    $stmt->execute([':id' => $userId]);
-    $u = $stmt->fetch();
-
-    if ($u) {
-        $title = trim((string)($u['title'] ?? ''));
-        $first = trim((string)($u['first_name'] ?? ''));
-
-        $userDisplay = trim($title . ' ' . $first);
-
-        if ($userDisplay === '') {
-            $userDisplay = 'User';
-        }
-    }
-}
 ?>
-<!-- Sidebar overlay (mobile) -->
-<div class="sidebar-overlay" id="sidebarOverlay" role="presentation" aria-hidden="true"></div>
-
-<aside class="sidebar" id="sidebar" aria-label="Main navigation">
+<aside class="sidebar" id="mainSidebar" aria-label="Main navigation">
 
   <!-- Close button (mobile only) -->
-  <button class="sidebar-close-btn" id="sidebarClose" aria-label="Close navigation">
+  <button class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Close navigation menu">
     <span class="material-symbols-outlined">close</span>
   </button>
 
   <div class="sidebar-top">
 
-    <!-- Brand -->
-    <div class="brand-logo-image">   
-      <div class="brand-subtitle">
-        <img src="/chadmin/views/theme/layout/logo.png" alt="AAA eFiling" class="brand-img">
+    <div class="brand">
+      <div class="brand-logo">
+        <div class="brand-icon">A</div>
+        <span class="brand-name">A1A eFiling</span>
       </div>
+      <span class="brand-subtitle">Compliance Portal</span>
     </div>
 
-    <!-- Sync All Companies -->
-    <a href="index.php?action=sync_all" class="btn-new-filing">
-      <span class="material-symbols-outlined">sync</span>
-      Sync All
-    </a>
+    <?php if ($isAdmin): ?>
+      <a href="index.php?add=1" class="btn-new-filing">
+        <span class="material-symbols-outlined">add</span>
+        Add Company
+      </a>
+    <?php endif; ?>
 
-  </div><!-- /.sidebar-top -->
+  </div>
 
+  <ul class="sidebar-menu">
 
-  <!-- ── Navigation: load based on role ── -->
-  <?php if ($isAdmin): ?>
-    <?php include __DIR__ . '/nav/nav-admin.php'; ?>
-  <?php else: ?>
-    <?php include __DIR__ . '/nav/nav-user.php'; ?>
-  <?php endif; ?>
+    <li>
+      <a href="index.php" class="sidebar-link">
+        <span class="material-symbols-outlined">dashboard</span>
+        Dashboard
+      </a>
+    </li>
 
+    <li>
+      <a href="companies_list.php" class="sidebar-link">
+        <span class="material-symbols-outlined">domain</span>
+        All Companies
+      </a>
+    </li>
 
-  <!-- ── Footer: settings + logout + user id ── -->
+    <li>
+      <a href="deadlines.php" class="sidebar-link">
+        <span class="material-symbols-outlined">event</span>
+        Deadlines
+      </a>
+    </li>
+
+    <?php if ($isAdmin): ?>
+    <li>
+      <a href="admin.php" class="sidebar-link">
+        <span class="material-symbols-outlined">admin_panel_settings</span>
+        Admin
+      </a>
+    </li>
+    <?php endif; ?>
+
+  </ul>
+
   <div class="sidebar-footer">
-    <a class="sidebar-link" href="profile.php">
-      <span class="material-symbols-outlined">account_circle</span>
-      <span>Profile</span>
+    <a href="profile.php" class="sidebar-link">
+      <span class="material-symbols-outlined">manage_accounts</span>
+      Profile
     </a>
-    <a href="#" class="sidebar-link">
-      <span class="material-symbols-outlined">settings</span>
-      Settings
-    </a>
-    <a href="/chadmin/logout.php" class="sidebar-link">
+    <a href="logout.php" class="sidebar-link">
       <span class="material-symbols-outlined">logout</span>
-      Sign Out
+      Sign out
     </a>
-    <div style="padding: var(--space-3); font-size: var(--text-label-caps);
-                color: var(--on-surface-variant); letter-spacing:0.04em;
-                border-top: 1px solid var(--outline-variant); margin-top: var(--space-2);">
-      Signed in as <strong><?= htmlspecialchars($userDisplay) ?></strong>
-    </div>
   </div>
 
 </aside>

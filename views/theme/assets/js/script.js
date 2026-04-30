@@ -32,61 +32,67 @@
     });
   }
 
+  /* ── Sidebar drawer (mobile) ────────────────────────────── */
+  const hamburgerBtn  = document.getElementById("hamburgerBtn");
+  const sidebarOverlay = document.getElementById("sidebarOverlay");
+  // Support both the main sidebar and the company secondary sidebar
+  const mainSidebar   = document.querySelector(".sidebar");
+  const companySidebar = document.querySelector(".company-sidebar");
+
+  // Pick whichever sidebar exists on this page
+  const activeSidebar = mainSidebar || companySidebar;
+
+  function openSidebar() {
+    if (!activeSidebar) return;
+    activeSidebar.classList.add("open");
+    if (sidebarOverlay) {
+      sidebarOverlay.classList.add("active");
+      sidebarOverlay.setAttribute("aria-hidden", "false");
+    }
+    if (hamburgerBtn) hamburgerBtn.setAttribute("aria-expanded", "true");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeSidebar() {
+    if (activeSidebar) activeSidebar.classList.remove("open");
+    if (sidebarOverlay) {
+      sidebarOverlay.classList.remove("active");
+      sidebarOverlay.setAttribute("aria-hidden", "true");
+    }
+    if (hamburgerBtn) hamburgerBtn.setAttribute("aria-expanded", "false");
+    document.body.style.overflow = "";
+  }
+
+  if (hamburgerBtn) {
+    hamburgerBtn.addEventListener("click", openSidebar);
+  }
+
+  if (sidebarOverlay) {
+    sidebarOverlay.addEventListener("click", closeSidebar);
+  }
+
+  // Sidebar close button (inside sidebar itself)
+  document.querySelectorAll(".sidebar-close-btn").forEach(btn => {
+    btn.addEventListener("click", closeSidebar);
+  });
+
+  // Close sidebar on Escape key
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeSidebar();
+  });
+
+  // Close sidebar when a nav link is tapped (mobile UX)
+  document.querySelectorAll(".sidebar-link, .company-sidebar-link").forEach(link => {
+    link.addEventListener("click", () => {
+      if (window.innerWidth <= 768) closeSidebar();
+    });
+  });
+
   /* ── Auto-active sidebar link ───────────────────────────── */
   const current = location.pathname.split("/").pop() || "index.html";
   document.querySelectorAll(".sidebar-link, .company-sidebar-link").forEach((link) => {
     const href = (link.getAttribute("href") || "").split("/").pop();
     if (href && href === current) link.classList.add("active");
-  });
-
-})();
-
-/* ============================================================
-   MOBILE SIDEBAR DRAWER
-   ============================================================ */
-(function () {
-  "use strict";
-
-  const sidebar    = document.getElementById("sidebar");
-  const overlay    = document.getElementById("sidebarOverlay");
-  const hamburger  = document.getElementById("hamburgerBtn");
-  const closeBtn   = document.getElementById("sidebarClose");
-
-  if (!sidebar || !overlay || !hamburger) return;
-
-  function openSidebar() {
-    sidebar.classList.add("open");
-    overlay.classList.add("open");
-    hamburger.setAttribute("aria-expanded", "true");
-    document.body.style.overflow = "hidden";
-  }
-
-  function closeSidebar() {
-    sidebar.classList.remove("open");
-    overlay.classList.remove("open");
-    hamburger.setAttribute("aria-expanded", "false");
-    document.body.style.overflow = "";
-  }
-
-  hamburger.addEventListener("click", openSidebar);
-  if (closeBtn) closeBtn.addEventListener("click", closeSidebar);
-  overlay.addEventListener("click", closeSidebar);
-
-  // Close on Escape key
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") closeSidebar();
-  });
-
-  // Close sidebar when a nav link is tapped on mobile
-  sidebar.querySelectorAll(".sidebar-link, .company-sidebar-link").forEach((link) => {
-    link.addEventListener("click", () => {
-      if (window.innerWidth < 768) closeSidebar();
-    });
-  });
-
-  // Auto-close sidebar if viewport resizes to desktop
-  window.addEventListener("resize", () => {
-    if (window.innerWidth >= 768) closeSidebar();
   });
 
 })();
@@ -180,10 +186,10 @@
   }
 
   function renderResults(query, status) {
-    const q     = query.toLowerCase();
-    const tbody = document.getElementById('ch-results-body');
-    const empty = document.getElementById('ch-empty');
-    const table = document.getElementById('ch-results-table');
+    const q        = query.toLowerCase();
+    const tbody    = document.getElementById('ch-results-body');
+    const empty    = document.getElementById('ch-empty');
+    const table    = document.getElementById('ch-results-table');
     if (!tbody || !empty || !table) return;
 
     const filtered = CH_DATA.filter(c => {
@@ -193,9 +199,9 @@
     });
 
     if (filtered.length === 0) {
-      tbody.innerHTML     = '';
-      table.style.display = 'none';
-      empty.style.display = 'block';
+      tbody.innerHTML      = '';
+      table.style.display  = 'none';
+      empty.style.display  = 'block';
       return;
     }
 

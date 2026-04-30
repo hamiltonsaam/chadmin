@@ -24,21 +24,26 @@ if ($userId) {
     }
 }
 ?>
+
+<!-- ── Sidebar overlay (mobile backdrop) ─────────────────── -->
+<div class="sidebar-overlay" id="sidebarOverlay" aria-hidden="true"></div>
+
 <div class="topbar" role="banner">
 
-  <!-- Hamburger (mobile only) -->
-  <button
-    class="hamburger-btn"
-    id="hamburgerBtn"
-    aria-label="Open navigation"
-    aria-expanded="false"
-    aria-controls="sidebar"
-  >
-    <span class="material-symbols-outlined">menu</span>
-  </button>
-
-  <!-- Left: Title + nav -->
+  <!-- Left: Hamburger (mobile only) + Title + nav -->
   <div class="topbar-left">
+
+    <!-- Hamburger: only visible on mobile via CSS -->
+    <button
+      class="hamburger-btn"
+      id="hamburgerBtn"
+      aria-label="Open navigation menu"
+      aria-expanded="false"
+      aria-controls="mainSidebar"
+    >
+      <span class="material-symbols-outlined">menu</span>
+    </button>
+
     <span class="topbar-title">AAA WEB-FILING</span>
 
     <nav class="topbar-nav" aria-label="Top navigation">
@@ -48,7 +53,7 @@ if ($userId) {
     </nav>
   </div>
 
-  <!-- Centre: Search (shown at 768px+) -->
+  <!-- Centre: Search (hidden on mobile, shown via CSS at 769px+) -->
   <form class="topbar-search" role="search" method="get" action="companies_list.php">
     <span class="material-symbols-outlined" aria-hidden="true">search</span>
     <input
@@ -62,10 +67,10 @@ if ($userId) {
     <button type="submit" class="sr-only">Search</button>
   </form>
 
-  <!-- Right: Theme toggle + User + Logout -->
+  <!-- Right: Theme toggle + User ID -->
   <div class="topbar-right">
 
-    <span class="user-id topbar-user-greet" aria-label="Signed in as <?= htmlspecialchars($userId) ?>">
+    <span class="user-id" aria-label="Signed in as <?= htmlspecialchars($userDisplay) ?>">
       <strong>Welcome Back <?= htmlspecialchars($userDisplay) ?>!</strong>
     </span>
 
@@ -78,9 +83,24 @@ if ($userId) {
       <span class="material-symbols-outlined">dark_mode</span>
     </button>
 
-    <a href="logout.php" class="icon-btn" title="Sign out" aria-label="Sign out">
+    <a href="logout.php" class="icon-btn" title="Sign out">
       <span class="material-symbols-outlined">logout</span>
     </a>
   </div>
 
+</div>
+
+<!-- Mobile search bar (below topbar, mobile only) -->
+<div class="topbar-search-mobile" role="search">
+  <span class="material-symbols-outlined" aria-hidden="true">search</span>
+  <form method="get" action="companies_list.php" style="flex:1;display:flex;">
+    <input
+      type="search"
+      name="search"
+      value="<?= h((string) ($_GET['search'] ?? '')) ?>"
+      placeholder="Search companies…"
+      aria-label="Search companies"
+      autocomplete="off"
+    />
+  </form>
 </div>
