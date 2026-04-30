@@ -15,31 +15,27 @@ if ($userId) {
     if ($u) {
         $title = trim((string)($u['title'] ?? ''));
         $first = trim((string)($u['first_name'] ?? ''));
-
         $userDisplay = trim($title . ' ' . $first);
-
-        if ($userDisplay === '') {
-            $userDisplay = 'User';
-        }
+        if ($userDisplay === '') $userDisplay = 'User';
     }
 }
 ?>
 
-<!-- ── Sidebar overlay (mobile backdrop) ─────────────────── -->
+<!-- Sidebar overlay (shared by all pages — JS toggles .open) -->
 <div class="sidebar-overlay" id="sidebarOverlay" aria-hidden="true"></div>
 
 <div class="topbar" role="banner">
 
-  <!-- Left: Hamburger (mobile only) + Title + nav -->
+  <!-- Left: Hamburger + Title + Nav -->
   <div class="topbar-left">
 
-    <!-- Hamburger: only visible on mobile via CSS -->
+    <!-- Hamburger — opens sidebar on mobile -->
     <button
       class="hamburger-btn"
       id="hamburgerBtn"
       aria-label="Open navigation menu"
       aria-expanded="false"
-      aria-controls="mainSidebar"
+      aria-controls="companySidebar mainSidebar"
     >
       <span class="material-symbols-outlined">menu</span>
     </button>
@@ -53,7 +49,7 @@ if ($userId) {
     </nav>
   </div>
 
-  <!-- Centre: Search (hidden on mobile, shown via CSS at 769px+) -->
+  <!-- Centre: Search (hidden below 768px, use mobile search bar instead) -->
   <form class="topbar-search" role="search" method="get" action="companies_list.php">
     <span class="material-symbols-outlined" aria-hidden="true">search</span>
     <input
@@ -67,8 +63,18 @@ if ($userId) {
     <button type="submit" class="sr-only">Search</button>
   </form>
 
-  <!-- Right: Theme toggle + User ID -->
+  <!-- Right: Mobile search toggle + Theme toggle + User + Logout -->
   <div class="topbar-right">
+
+    <!-- Mobile search toggle (visible only on mobile) -->
+    <button
+      class="mobile-search-btn icon-btn"
+      id="mobileSearchBtn"
+      aria-label="Toggle search"
+      title="Search"
+    >
+      <span class="material-symbols-outlined">search</span>
+    </button>
 
     <span class="user-id" aria-label="Signed in as <?= htmlspecialchars($userDisplay) ?>">
       <strong>Welcome Back <?= htmlspecialchars($userDisplay) ?>!</strong>
@@ -90,17 +96,22 @@ if ($userId) {
 
 </div>
 
-<!-- Mobile search bar (below topbar, mobile only) -->
-<div class="topbar-search-mobile" role="search">
-  <span class="material-symbols-outlined" aria-hidden="true">search</span>
-  <form method="get" action="companies_list.php" style="flex:1;display:flex;">
+<!-- Mobile search bar (slides in below topbar on mobile) -->
+<div class="mobile-search-bar" id="mobileSearchBar" aria-hidden="true">
+  <form role="search" method="get" action="companies_list.php">
+    <span class="material-symbols-outlined" aria-hidden="true">search</span>
     <input
       type="search"
       name="search"
+      id="mobileSearchInput"
       value="<?= h((string) ($_GET['search'] ?? '')) ?>"
       placeholder="Search companies…"
       aria-label="Search companies"
       autocomplete="off"
     />
+    <button type="submit" class="sr-only">Search</button>
+    <button type="button" class="mobile-search-close icon-btn" id="mobileSearchClose" aria-label="Close search">
+      <span class="material-symbols-outlined">close</span>
+    </button>
   </form>
 </div>

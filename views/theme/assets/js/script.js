@@ -32,67 +32,82 @@
     });
   }
 
-  /* ── Sidebar drawer (mobile) ────────────────────────────── */
-  const hamburgerBtn  = document.getElementById("hamburgerBtn");
-  const sidebarOverlay = document.getElementById("sidebarOverlay");
-  // Support both the main sidebar and the company secondary sidebar
-  const mainSidebar   = document.querySelector(".sidebar");
-  const companySidebar = document.querySelector(".company-sidebar");
-
-  // Pick whichever sidebar exists on this page
-  const activeSidebar = mainSidebar || companySidebar;
-
-  function openSidebar() {
-    if (!activeSidebar) return;
-    activeSidebar.classList.add("open");
-    if (sidebarOverlay) {
-      sidebarOverlay.classList.add("active");
-      sidebarOverlay.setAttribute("aria-hidden", "false");
-    }
-    if (hamburgerBtn) hamburgerBtn.setAttribute("aria-expanded", "true");
-    document.body.style.overflow = "hidden";
-  }
-
-  function closeSidebar() {
-    if (activeSidebar) activeSidebar.classList.remove("open");
-    if (sidebarOverlay) {
-      sidebarOverlay.classList.remove("active");
-      sidebarOverlay.setAttribute("aria-hidden", "true");
-    }
-    if (hamburgerBtn) hamburgerBtn.setAttribute("aria-expanded", "false");
-    document.body.style.overflow = "";
-  }
-
-  if (hamburgerBtn) {
-    hamburgerBtn.addEventListener("click", openSidebar);
-  }
-
-  if (sidebarOverlay) {
-    sidebarOverlay.addEventListener("click", closeSidebar);
-  }
-
-  // Sidebar close button (inside sidebar itself)
-  document.querySelectorAll(".sidebar-close-btn").forEach(btn => {
-    btn.addEventListener("click", closeSidebar);
-  });
-
-  // Close sidebar on Escape key
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") closeSidebar();
-  });
-
-  // Close sidebar when a nav link is tapped (mobile UX)
-  document.querySelectorAll(".sidebar-link, .company-sidebar-link").forEach(link => {
-    link.addEventListener("click", () => {
-      if (window.innerWidth <= 768) closeSidebar();
-    });
-  });
-
   /* ── Auto-active sidebar link ───────────────────────────── */
   const current = location.pathname.split("/").pop() || "index.html";
   document.querySelectorAll(".sidebar-link, .company-sidebar-link").forEach((link) => {
     const href = (link.getAttribute("href") || "").split("/").pop();
     if (href && href === current) link.classList.add("active");
+  });
+
+  /* ── Sidebar drawer (hamburger) ─────────────────────────── */
+  const hamburgerBtn  = document.getElementById("hamburgerBtn");
+  const sidebarOverlay = document.getElementById("sidebarOverlay");
+  // Support both .company-sidebar (filing/company pages) and .main-sidebar (dashboard)
+  const sidebar = document.getElementById("companySidebar")
+               || document.getElementById("mainSidebar")
+               || document.querySelector(".company-sidebar")
+               || document.querySelector(".sidebar");
+  const closeBtn = document.getElementById("sidebarCloseBtn");
+
+  function openSidebar() {
+    if (!sidebar) return;
+    sidebar.classList.add("open");
+    if (sidebarOverlay) { sidebarOverlay.classList.add("open"); sidebarOverlay.removeAttribute("aria-hidden"); }
+    if (hamburgerBtn)   hamburgerBtn.setAttribute("aria-expanded", "true");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeSidebar() {
+    if (!sidebar) return;
+    sidebar.classList.remove("open");
+    if (sidebarOverlay) { sidebarOverlay.classList.remove("open"); sidebarOverlay.setAttribute("aria-hidden", "true"); }
+    if (hamburgerBtn)   hamburgerBtn.setAttribute("aria-expanded", "false");
+    document.body.style.overflow = "";
+  }
+
+  if (hamburgerBtn)   hamburgerBtn.addEventListener("click", openSidebar);
+  if (closeBtn)       closeBtn.addEventListener("click", closeSidebar);
+  if (sidebarOverlay) sidebarOverlay.addEventListener("click", closeSidebar);
+
+  // Close sidebar when a nav link is tapped (mobile UX)
+  if (sidebar) {
+    sidebar.querySelectorAll(".company-sidebar-link, .sidebar-link").forEach(link => {
+      link.addEventListener("click", () => {
+        if (window.innerWidth < 1024) closeSidebar();
+      });
+    });
+  }
+
+  // Close on Escape key
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeSidebar();
+  });
+
+  /* ── Mobile search bar toggle ───────────────────────────── */
+  const mobileSearchBtn   = document.getElementById("mobileSearchBtn");
+  const mobileSearchBar   = document.getElementById("mobileSearchBar");
+  const mobileSearchClose = document.getElementById("mobileSearchClose");
+  const mobileSearchInput = document.getElementById("mobileSearchInput");
+
+  function openMobileSearch() {
+    if (!mobileSearchBar) return;
+    mobileSearchBar.classList.add("open");
+    mobileSearchBar.removeAttribute("aria-hidden");
+    if (mobileSearchInput) mobileSearchInput.focus();
+  }
+
+  function closeMobileSearch() {
+    if (!mobileSearchBar) return;
+    mobileSearchBar.classList.remove("open");
+    mobileSearchBar.setAttribute("aria-hidden", "true");
+  }
+
+  if (mobileSearchBtn)   mobileSearchBtn.addEventListener("click", openMobileSearch);
+  if (mobileSearchClose) mobileSearchClose.addEventListener("click", closeMobileSearch);
+
+  // Close mobile search on Escape
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeMobileSearch();
   });
 
 })();
@@ -137,17 +152,14 @@
     if (el) el.classList.remove('open');
   }
 
-  // data-open-modal buttons
   document.querySelectorAll('[data-open-modal]').forEach(btn => {
     btn.addEventListener('click', () => openModal(btn.dataset.openModal));
   });
 
-  // data-close-modal buttons
   document.querySelectorAll('[data-close-modal]').forEach(btn => {
     btn.addEventListener('click', () => closeModal(btn.dataset.closeModal));
   });
 
-  // Close on backdrop click
   document.querySelectorAll('.modal-backdrop').forEach(backdrop => {
     backdrop.addEventListener('click', e => {
       if (e.target === backdrop) backdrop.classList.remove('open');
@@ -186,10 +198,10 @@
   }
 
   function renderResults(query, status) {
-    const q        = query.toLowerCase();
-    const tbody    = document.getElementById('ch-results-body');
-    const empty    = document.getElementById('ch-empty');
-    const table    = document.getElementById('ch-results-table');
+    const q      = query.toLowerCase();
+    const tbody  = document.getElementById('ch-results-body');
+    const empty  = document.getElementById('ch-empty');
+    const table  = document.getElementById('ch-results-table');
     if (!tbody || !empty || !table) return;
 
     const filtered = CH_DATA.filter(c => {
@@ -223,7 +235,6 @@
       </tr>
     `).join('');
 
-    // Attach add-from-search handlers to newly rendered buttons
     tbody.querySelectorAll('[data-add-number]').forEach(btn => {
       btn.addEventListener('click', () => {
         alert(`Company "${btn.dataset.addName}" (${btn.dataset.addNumber}) added to your portfolio.`);

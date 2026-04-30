@@ -1,15 +1,14 @@
 {
-  "name": "AAA Web-Filing Compliance Portal",
-  "short_name": "AAA eFiling",
-  "description": "Company compliance filing and management portal",
+  "name": "A1A eFiling — Compliance Portal",
+  "short_name": "A1A eFiling",
+  "description": "Companies House compliance and web filing portal",
   "start_url": "/chadmin/index.php",
-  "scope": "/chadmin/",
   "display": "standalone",
-  "orientation": "any",
   "background_color": "#f9f9ff",
-  "theme_color": "#003366",
+  "theme_color": "#001e40",
+  "orientation": "portrait-primary",
+  "scope": "/chadmin/",
   "lang": "en-GB",
-  "categories": ["business", "productivity", "finance"],
   "icons": [
     {
       "src": "/chadmin/views/theme/layout/logo.png",
@@ -24,6 +23,16 @@
       "purpose": "any maskable"
     }
   ],
+  "screenshots": [
+    {
+      "src": "/chadmin/views/theme/layout/logo.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Dashboard"
+    }
+  ],
+  "categories": ["business", "productivity", "finance"],
   "shortcuts": [
     {
       "name": "Dashboard",
