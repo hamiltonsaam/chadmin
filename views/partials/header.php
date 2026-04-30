@@ -9,13 +9,22 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="<?= h((string) cfg('app_name')) ?>" />
-  <title><?= h((string) cfg('app_name')) ?></title>
   <link rel="manifest" href="manifest.json" />
+  <title><?= h((string) cfg('app_name')) ?></title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
   <link rel="stylesheet" href="views/theme/assets/css/styles.css" />
+  <script>
+    // Register Service Worker for PWA offline support
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('/chadmin/sw.js')
+          .catch(function () { /* silently ignore registration failures */ });
+      });
+    }
+  </script>
 </head>
 <body>
 
@@ -83,7 +92,7 @@
     <!-- Desktop inline search (hidden on mobile via CSS) -->
     <div class="topbar-search" role="search">
       <span class="material-symbols-outlined">search</span>
-      <input type="search" placeholder="Search…" aria-label="Search" />
+      <input type="search" placeholder="Search\u2026" aria-label="Search" />
     </div>
     <div class="topbar-right">
       <span class="user-id"><?= h((string) ($_SESSION['user_email'] ?? '')) ?></span>
@@ -99,7 +108,7 @@
   <!-- Mobile search bar — shown below topbar on small screens only -->
   <div class="topbar-search-mobile" role="search" aria-label="Mobile search">
     <span class="material-symbols-outlined" aria-hidden="true">search</span>
-    <input type="search" placeholder="Search companies…" aria-label="Search companies" />
+    <input type="search" placeholder="Search companies\u2026" aria-label="Search companies" />
   </div>
 
   <?php if (!empty($flash)): ?>
