@@ -5,8 +5,8 @@
   "start_url": "/chadmin/index.php",
   "display": "standalone",
   "background_color": "#f9f9ff",
-  "theme_color": "#001e40",
-  "orientation": "portrait-primary",
+  "theme_color": "#003366",
+  "orientation": "any",
   "scope": "/chadmin/",
   "lang": "en-GB",
   "icons": [
