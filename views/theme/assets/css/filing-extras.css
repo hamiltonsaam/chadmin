@@ -1,0 +1,128 @@
+/* ============================================================
+   filing-extras.css
+   Supplementary styles for the Web Filing page only.
+   Loaded by filing_page_view.php in addition to styles.css
+   ============================================================ */
+
+/* ── Two-column layout for Registered Office + Email ──────── */
+.web-filing-two-column {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  gap: var(--space-4);
+  align-items: start;
+  width: 100%;
+  margin-top: var(--space-4);
+}
+
+/* Stack to single column on tablets and smaller */
+@media (max-width: 960px) {
+  .web-filing-two-column {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Flash messages ────────────────────────────────────────── */
+.flash-ok {
+  padding: var(--space-3) var(--space-4);
+  background: #e6f4ea;
+  border: 1px solid #ceead6;
+  border-radius: var(--radius-md);
+  color: #137333;
+  font-size: var(--text-body-sm);
+  font-weight: 500;
+}
+.flash-error {
+  padding: var(--space-3) var(--space-4);
+  background: #fce8e6;
+  border: 1px solid #fad2cf;
+  border-radius: var(--radius-md);
+  color: #c5221f;
+  font-size: var(--text-body-sm);
+  font-weight: 500;
+}
+
+/* ── Info boxes ────────────────────────────────────────────── */
+.info-box {
+  padding: var(--space-3) var(--space-4);
+  background: var(--surface-container-low);
+  border: 1px solid var(--outline-variant);
+  border-radius: var(--radius-md);
+}
+.info-title {
+  font-size: var(--text-label-caps);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--on-surface-variant);
+  margin-bottom: 4px;
+}
+.info-value {
+  font-size: var(--text-body-md);
+  font-weight: 500;
+  color: var(--on-surface);
+}
+
+/* ── Info grid ────────────────────────────────────────────── */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+/* ── Spacing helpers used on filing page ─────────────────── */
+.mt-16 { margin-top: var(--space-4); }
+.mt-20 { margin-top: var(--space-5); }
+
+/* ── Form label as block ────────────────────────────────────── */
+.form-label {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  font-size: var(--text-label-bold);
+  font-weight: 600;
+  color: var(--on-surface);
+}
+
+/* ── Actions bar ────────────────────────────────────────────── */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+/* ── Page title inside card ─────────────────────────────────── */
+.page-title {
+  font-size: var(--text-h3);
+  font-weight: 700;
+  color: var(--on-surface);
+  margin: 0;
+}
+
+/* ── Muted text ─────────────────────────────────────────────── */
+.muted {
+  color: var(--on-surface-variant);
+  font-size: var(--text-body-sm);
+}
+
+@media (max-width: 768px) {
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+  .row {
+    flex-direction: column;
+  }
+  .row label,
+  .row div {
+    width: 100%;
+  }
+}
