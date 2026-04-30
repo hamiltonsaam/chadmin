@@ -26,6 +26,17 @@ if ($userId) {
 ?>
 <div class="topbar" role="banner">
 
+  <!-- Hamburger (mobile only) -->
+  <button
+    class="hamburger-btn"
+    id="hamburgerBtn"
+    aria-label="Open navigation"
+    aria-expanded="false"
+    aria-controls="sidebar"
+  >
+    <span class="material-symbols-outlined">menu</span>
+  </button>
+
   <!-- Left: Title + nav -->
   <div class="topbar-left">
     <span class="topbar-title">AAA WEB-FILING</span>
@@ -34,30 +45,27 @@ if ($userId) {
       <a href="index.php">Dashboard</a>
       <span class="sep" aria-hidden="true">|</span>
       <a href="companies_list.php">All Companies</a>
-      
     </nav>
   </div>
 
-  <!-- Centre: Search (hidden on mobile, shown via CSS at 769px+) -->
-		<form class="topbar-search" role="search" method="get" action="companies_list.php">
-		  <span class="material-symbols-outlined" aria-hidden="true">search</span>
+  <!-- Centre: Search (shown at 768px+) -->
+  <form class="topbar-search" role="search" method="get" action="companies_list.php">
+    <span class="material-symbols-outlined" aria-hidden="true">search</span>
+    <input
+      type="search"
+      name="search"
+      value="<?= h((string) ($_GET['search'] ?? '')) ?>"
+      placeholder="Search companies…"
+      aria-label="Search companies"
+      autocomplete="off"
+    />
+    <button type="submit" class="sr-only">Search</button>
+  </form>
 
-		  <input
-			type="search"
-			name="search"
-			value="<?= h((string) ($_GET['search'] ?? '')) ?>"
-			placeholder="Search companies…"
-			aria-label="Search companies"
-			autocomplete="off"
-		  />
-
-		  <button type="submit" class="sr-only">Search</button>
-		</form>
-
-  <!-- Right: Theme toggle + User ID -->
+  <!-- Right: Theme toggle + User + Logout -->
   <div class="topbar-right">
 
-    <span class="user-id" aria-label="Signed in as <?= htmlspecialchars($userId) ?>">
+    <span class="user-id topbar-user-greet" aria-label="Signed in as <?= htmlspecialchars($userId) ?>">
       <strong>Welcome Back <?= htmlspecialchars($userDisplay) ?>!</strong>
     </span>
 
@@ -70,9 +78,9 @@ if ($userId) {
       <span class="material-symbols-outlined">dark_mode</span>
     </button>
 
-        <a href="logout.php" class="icon-btn" title="Sign out">
-        <span class="material-symbols-outlined">logout</span>
-      </a>
+    <a href="logout.php" class="icon-btn" title="Sign out" aria-label="Sign out">
+      <span class="material-symbols-outlined">logout</span>
+    </a>
   </div>
 
 </div>

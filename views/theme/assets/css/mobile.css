@@ -1,0 +1,249 @@
+/* ============================================================
+   RESPONSIVE / PWA — mobile.css
+   Breakpoints: mobile < 768px | tablet 768-1023px | desktop 1024px+
+   ============================================================ */
+
+/* ── Hamburger button (hidden on desktop) ── */
+.hamburger-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  background: transparent;
+  color: var(--on-surface-variant);
+  border-radius: var(--radius-md);
+  transition: color var(--transition), background var(--transition);
+}
+.hamburger-btn:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--on-surface);
+}
+body.dark .hamburger-btn:hover { background: rgba(255, 255, 255, 0.06); }
+
+/* ── Sidebar close button (hidden on desktop) ── */
+.sidebar-close-btn {
+  display: none;
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: transparent;
+  color: var(--on-surface-variant);
+  border-radius: var(--radius-md);
+  z-index: 1;
+  transition: color var(--transition), background var(--transition);
+}
+.sidebar-close-btn:hover {
+  background: rgba(0, 0, 0, 0.06);
+  color: var(--on-surface);
+}
+
+/* ── Sidebar overlay ── */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: oklch(0 0 0 / 0.5);
+  z-index: 39;
+  opacity: 0;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+.sidebar-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ============================================================
+   MOBILE  (max-width: 767px)
+   ============================================================ */
+@media (max-width: 767px) {
+
+  /* Show hamburger & close button */
+  .hamburger-btn,
+  .sidebar-close-btn { display: flex; }
+
+  /* Overlay becomes visible layer */
+  .sidebar-overlay { display: block; }
+
+  /* Sidebar becomes an off-canvas drawer */
+  .sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.28s ease;
+    z-index: 50;
+    box-shadow: none;
+  }
+  .sidebar.open {
+    transform: translateX(0);
+    box-shadow: 8px 0 32px oklch(0 0 0 / 0.18);
+  }
+
+  /* Page spans full width */
+  .page {
+    margin-left: 0 !important;
+  }
+
+  /* Topbar: compact, add gap for hamburger */
+  .topbar {
+    padding: 0 var(--space-3);
+    gap: var(--space-2);
+  }
+
+  /* Hide desktop nav links */
+  .topbar-nav { display: none; }
+
+  /* Smaller title on mobile */
+  .topbar-title { font-size: 13px; letter-spacing: 0; }
+
+  /* Search bar: fill available space */
+  .topbar-search {
+    display: flex;
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* Hide welcome greeting on very small screens */
+  .topbar-user-greet { display: none; }
+
+  /* Main content: tighter padding */
+  .main-content { padding: var(--space-4) var(--space-3); }
+
+  /* Stat grid: 2 columns */
+  .stat-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+  }
+  .stat-value { font-size: 22px; }
+
+  /* Company layout: stack to single column */
+  .company-layout {
+    grid-template-columns: 1fr;
+  }
+  .panels-grid  { grid-template-columns: 1fr; }
+  .detail-grid  { grid-template-columns: 1fr; }
+
+  /* Company secondary sidebar: hide on mobile */
+  .company-sidebar { display: none !important; }
+  .company-main {
+    margin-left: 0 !important;
+    height: calc(100vh - var(--topbar-height));
+    padding: var(--space-4) var(--space-3);
+  }
+
+  /* Tables: horizontal scroll on mobile */
+  .table-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  /* Hint that table scrolls horizontally */
+  .table-scroll::after {
+    content: '';
+    display: block;
+    height: 0;
+  }
+
+  /* Filter bar: stack controls */
+  .filter-bar-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .filter-bar-controls .input,
+  .filter-bar-controls .select { width: 100%; }
+
+  /* Page header: smaller spacing */
+  .page-header { margin-bottom: var(--space-6); }
+  .page-header h1 { font-size: 22px; }
+  .page-header p  { font-size: var(--text-body-md); }
+
+  /* Card padding reduced */
+  .card { padding: var(--space-4); }
+
+  /* Pagination: stack on mobile */
+  .pagination {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+
+  /* Login: single column */
+  .login-right { display: none; }
+  .login-left  { padding: var(--space-8) var(--space-5); }
+  .login-box   { max-width: 100%; }
+
+  /* Footer: stack */
+  .footer {
+    flex-direction: column;
+    gap: var(--space-1);
+    text-align: center;
+    padding: var(--space-3) var(--space-4);
+  }
+}
+
+/* ============================================================
+   TABLET  (768px – 1023px)
+   ============================================================ */
+@media (min-width: 768px) and (max-width: 1023px) {
+
+  :root { --sidebar-width: 220px; }
+
+  /* Topbar search: narrower */
+  .topbar-search { min-width: 160px; }
+
+  /* Stat grid: 2-col */
+  .stat-grid { grid-template-columns: repeat(2, 1fr); }
+
+  /* Company layout: single column */
+  .company-layout { grid-template-columns: 1fr; }
+  .panels-grid    { grid-template-columns: repeat(2, 1fr); }
+
+  /* Company secondary sidebar: narrower */
+  .company-sidebar { width: 180px; }
+  .company-main {
+    margin-left: calc(220px + 180px);
+  }
+
+  /* Main content: reduced padding */
+  .main-content { padding: var(--space-5); }
+}
+
+/* ============================================================
+   DESKTOP  (768px+) — ensure topbar search is always visible
+   ============================================================ */
+@media (min-width: 768px) {
+  .topbar-search { display: flex; }
+}
+
+/* ============================================================
+   PWA / STANDALONE MODE
+   ============================================================ */
+@media (display-mode: standalone) {
+  /* Push topbar below status bar on iOS/Android */
+  .topbar {
+    padding-top: env(safe-area-inset-top, 0px);
+    height: calc(var(--topbar-height) + env(safe-area-inset-top, 0px));
+  }
+  .page {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  .sidebar {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+}
+
+/* Safe area insets (notched phones — always apply) */
+@supports (padding: env(safe-area-inset-bottom)) {
+  .sidebar-footer {
+    padding-bottom: calc(var(--space-4) + env(safe-area-inset-bottom));
+  }
+  .footer {
+    padding-bottom: calc(var(--space-3) + env(safe-area-inset-bottom));
+  }
+}

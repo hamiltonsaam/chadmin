@@ -19,7 +19,7 @@
 
   // Initialise from sessionStorage or system preference
   try {
-    const saved      = sessionStorage.getItem("theme");
+    const saved       = sessionStorage.getItem("theme");
     const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
     applyTheme(saved ? saved === "dark" : prefersDark);
   } catch (_) {}
@@ -37,6 +37,56 @@
   document.querySelectorAll(".sidebar-link, .company-sidebar-link").forEach((link) => {
     const href = (link.getAttribute("href") || "").split("/").pop();
     if (href && href === current) link.classList.add("active");
+  });
+
+})();
+
+/* ============================================================
+   MOBILE SIDEBAR DRAWER
+   ============================================================ */
+(function () {
+  "use strict";
+
+  const sidebar    = document.getElementById("sidebar");
+  const overlay    = document.getElementById("sidebarOverlay");
+  const hamburger  = document.getElementById("hamburgerBtn");
+  const closeBtn   = document.getElementById("sidebarClose");
+
+  if (!sidebar || !overlay || !hamburger) return;
+
+  function openSidebar() {
+    sidebar.classList.add("open");
+    overlay.classList.add("open");
+    hamburger.setAttribute("aria-expanded", "true");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeSidebar() {
+    sidebar.classList.remove("open");
+    overlay.classList.remove("open");
+    hamburger.setAttribute("aria-expanded", "false");
+    document.body.style.overflow = "";
+  }
+
+  hamburger.addEventListener("click", openSidebar);
+  if (closeBtn) closeBtn.addEventListener("click", closeSidebar);
+  overlay.addEventListener("click", closeSidebar);
+
+  // Close on Escape key
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeSidebar();
+  });
+
+  // Close sidebar when a nav link is tapped on mobile
+  sidebar.querySelectorAll(".sidebar-link, .company-sidebar-link").forEach((link) => {
+    link.addEventListener("click", () => {
+      if (window.innerWidth < 768) closeSidebar();
+    });
+  });
+
+  // Auto-close sidebar if viewport resizes to desktop
+  window.addEventListener("resize", () => {
+    if (window.innerWidth >= 768) closeSidebar();
   });
 
 })();
@@ -130,10 +180,10 @@
   }
 
   function renderResults(query, status) {
-    const q        = query.toLowerCase();
-    const tbody    = document.getElementById('ch-results-body');
-    const empty    = document.getElementById('ch-empty');
-    const table    = document.getElementById('ch-results-table');
+    const q     = query.toLowerCase();
+    const tbody = document.getElementById('ch-results-body');
+    const empty = document.getElementById('ch-empty');
+    const table = document.getElementById('ch-results-table');
     if (!tbody || !empty || !table) return;
 
     const filtered = CH_DATA.filter(c => {
@@ -143,9 +193,9 @@
     });
 
     if (filtered.length === 0) {
-      tbody.innerHTML      = '';
-      table.style.display  = 'none';
-      empty.style.display  = 'block';
+      tbody.innerHTML     = '';
+      table.style.display = 'none';
+      empty.style.display = 'block';
       return;
     }
 

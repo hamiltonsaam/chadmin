@@ -21,17 +21,24 @@ if ($userId) {
     }
 }
 ?>
-<aside class="sidebar" aria-label="Main navigation">
+<!-- Sidebar overlay (mobile) -->
+<div class="sidebar-overlay" id="sidebarOverlay" role="presentation" aria-hidden="true"></div>
+
+<aside class="sidebar" id="sidebar" aria-label="Main navigation">
+
+  <!-- Close button (mobile only) -->
+  <button class="sidebar-close-btn" id="sidebarClose" aria-label="Close navigation">
+    <span class="material-symbols-outlined">close</span>
+  </button>
 
   <div class="sidebar-top">
 
     <!-- Brand -->
-	<div class="brand-logo-image">   
-	  <div class="brand-subtitle">
-		<img src="/chadmin/views/theme/layout/logo.png" alt="AAA eFiling" class="brand-img">
-		</div>
-	</div>
- 
+    <div class="brand-logo-image">   
+      <div class="brand-subtitle">
+        <img src="/chadmin/views/theme/layout/logo.png" alt="AAA eFiling" class="brand-img">
+      </div>
+    </div>
 
     <!-- Sync All Companies -->
     <a href="index.php?action=sync_all" class="btn-new-filing">
@@ -39,30 +46,23 @@ if ($userId) {
       Sync All
     </a>
 
-    <!-- New Filing CTA ------ Coment out as not needed
-    <a href="/chadmin/views/theme/layout/new-filing.php" class="btn-new-filing">
-      <span class="material-symbols-outlined">add</span>
-      New Filing
-    </a>  -->
-
   </div><!-- /.sidebar-top -->
 
 
   <!-- ── Navigation: load based on role ── -->
-	<?php if ($isAdmin): ?>
-	  <?php include __DIR__ . '/nav/nav-admin.php'; ?>
-	<?php else: ?>
-	  <?php include __DIR__ . '/nav/nav-user.php'; ?>
-	<?php endif; ?>
+  <?php if ($isAdmin): ?>
+    <?php include __DIR__ . '/nav/nav-admin.php'; ?>
+  <?php else: ?>
+    <?php include __DIR__ . '/nav/nav-user.php'; ?>
+  <?php endif; ?>
 
 
   <!-- ── Footer: settings + logout + user id ── -->
-    <div class="sidebar-footer">
-  <a class="sidebar-link" href="profile.php">
-  <span class="material-symbols-outlined">account_circle</span>
-  <span>Profile</span>
-</a>
-  
+  <div class="sidebar-footer">
+    <a class="sidebar-link" href="profile.php">
+      <span class="material-symbols-outlined">account_circle</span>
+      <span>Profile</span>
+    </a>
     <a href="#" class="sidebar-link">
       <span class="material-symbols-outlined">settings</span>
       Settings

@@ -10,8 +10,18 @@ $isAdmin = !empty($_SESSION['is_admin']);
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title><?= htmlspecialchars($pageTitle) ?> — AAA WEB-FILING</title>
+
+  <!-- PWA / Web App -->
+  <meta name="theme-color" content="#003366" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="AAA eFiling" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="application-name" content="AAA eFiling" />
+  <link rel="manifest" href="/chadmin/manifest.json" />
 
   <!-- Google Fonts: Public Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -21,8 +31,9 @@ $isAdmin = !empty($_SESSION['is_admin']);
   <!-- Material Symbols -->
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
 
-  <!-- Stylesheet -->
+  <!-- Stylesheets -->
   <link rel="stylesheet" href="/chadmin/views/theme/assets/css/styles.css" />
+  <link rel="stylesheet" href="/chadmin/views/theme/assets/css/mobile.css" />
 </head>
 <body>
 
