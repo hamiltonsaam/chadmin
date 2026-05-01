@@ -1,0 +1,12 @@
+********companies_v4_5_2**********
+
+Add the Botton to Admin Dash to view all Companies from all users
+
+********companies_v4_5_3**********
+
+Add by user filter to Admin Dash to view all Companies
+
+********companies_v5**********
+
+-change the admin panel to work independent as a mini app
+-isolate the admin panel from main application

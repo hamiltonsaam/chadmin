@@ -1,0 +1,149 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xbrl xmlns="http://www.xbrl.org/2003/instance"
+      xmlns:link="http://www.xbrl.org/2003/linkbase"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns:xbrldi="http://xbrl.org/2006/xbrldi"
+      xmlns:iso4217="http://www.xbrl.org/2003/iso4217"
+      xmlns:uk-bus="http://xbrl.frc.org.uk/cd/2023-01-01/business"
+      xmlns:uk-core="http://xbrl.frc.org.uk/fr/2023-01-01/core"
+      xmlns:uk-direp="http://xbrl.frc.org.uk/reports/2023-01-01/direp">
+
+  <link:schemaRef xlink:href="https://xbrl.frc.org.uk/FRS-102/2023-01-01/FRS-102-2023-01-01.xsd" xlink:type="simple"/>
+
+  <!-- ===== CONTEXTS ===== -->
+  <context id="icur1">
+    <entity>
+      <identifier scheme="http://www.companieshouse.gov.uk/">15023569</identifier>
+    </entity>
+    <period>
+      <instant>2024-07-31</instant>
+    </period>
+  </context>
+
+  <context id="CY">
+    <entity>
+      <identifier scheme="http://www.companieshouse.gov.uk/">15023569</identifier>
+    </entity>
+    <period>
+      <startDate>2023-07-24</startDate>
+      <endDate>2024-07-31</endDate>
+    </period>
+  </context>
+
+  <context id="dcur1">
+    <entity>
+      <identifier scheme="http://www.companieshouse.gov.uk/">15023569</identifier>
+      <segment>
+        <xbrldi:explicitMember dimension="uk-bus:EntityOfficersDimension">uk-bus:Director1</xbrldi:explicitMember>
+      </segment>
+    </entity>
+    <period>
+      <startDate>2023-07-24</startDate>
+      <endDate>2024-07-31</endDate>
+    </period>
+  </context>
+
+  <context id="dcur2">
+    <entity>
+      <identifier scheme="http://www.companieshouse.gov.uk/">15023569</identifier>
+      <segment>
+        <xbrldi:explicitMember dimension="uk-bus:EntityOfficersDimension">uk-bus:Director2</xbrldi:explicitMember>
+      </segment>
+    </entity>
+    <period>
+      <startDate>2023-07-24</startDate>
+      <endDate>2024-07-31</endDate>
+    </period>
+  </context>
+
+  <context id="dcur4">
+    <entity>
+      <identifier scheme="http://www.companieshouse.gov.uk/">15023569</identifier>
+    </entity>
+    <period>
+      <startDate>2023-07-24</startDate>
+      <endDate>2024-07-31</endDate>
+    </period>
+  </context>
+
+  <context id="dcur5">
+    <entity>
+      <identifier scheme="http://www.companieshouse.gov.uk/">15023569</identifier>
+      <segment>
+        <xbrldi:explicitMember dimension="uk-bus:AccountingStandardsDimension">uk-bus:Micro-entities</xbrldi:explicitMember>
+      </segment>
+    </entity>
+    <period>
+      <startDate>2023-07-24</startDate>
+      <endDate>2024-07-31</endDate>
+    </period>
+  </context>
+
+  <context id="dcur6">
+    <entity>
+      <identifier scheme="http://www.companieshouse.gov.uk/">15023569</identifier>
+      <segment>
+        <xbrldi:explicitMember dimension="uk-bus:AccountsTypeDimension">uk-bus:FullAccounts</xbrldi:explicitMember>
+      </segment>
+    </entity>
+    <period>
+      <startDate>2023-07-24</startDate>
+      <endDate>2024-07-31</endDate>
+    </period>
+  </context>
+
+  <context id="dcur7">
+    <entity>
+      <identifier scheme="http://www.companieshouse.gov.uk/">15023569</identifier>
+      <segment>
+        <xbrldi:explicitMember dimension="uk-bus:AccountsStatusDimension">uk-bus:AuditExempt-NoAccountantsReport</xbrldi:explicitMember>
+      </segment>
+    </entity>
+    <period>
+      <startDate>2023-07-24</startDate>
+      <endDate>2024-07-31</endDate>
+    </period>
+  </context>
+
+  <context id="icur9">
+    <entity>
+      <identifier scheme="http://www.companieshouse.gov.uk/">15023569</identifier>
+      <segment>
+        <xbrldi:explicitMember dimension="uk-core:MaturitiesOrExpirationPeriodsDimension">uk-core:WithinOneYear</xbrldi:explicitMember>
+      </segment>
+    </entity>
+    <period>
+      <instant>2024-07-31</instant>
+    </period>
+  </context>
+
+  <!-- ===== UNITS ===== -->
+  <unit id="GBP">
+    <measure>iso4217:GBP</measure>
+  </unit>
+
+  <!-- ===== NON-NUMERIC FACTS ===== -->
+  <uk-bus:NameProductionSoftware contextRef="CY">Companies House</uk-bus:NameProductionSoftware>
+  <uk-bus:StartDateForPeriodCoveredByReport contextRef="icur1">2023-07-24</uk-bus:StartDateForPeriodCoveredByReport>
+  <uk-bus:EndDateForPeriodCoveredByReport contextRef="icur1">2024-07-31</uk-bus:EndDateForPeriodCoveredByReport>
+  <uk-core:DirectorSigningFinancialStatements contextRef="dcur1"/>
+  <uk-core:DirectorSigningFinancialStatements contextRef="dcur2"/>
+  <uk-bus:EntityDormantTruefalse contextRef="dcur4">false</uk-bus:EntityDormantTruefalse>
+  <uk-bus:AccountingStandardsApplied contextRef="dcur5"/>
+  <uk-bus:AccountsType contextRef="dcur6"/>
+  <uk-bus:AccountsStatusAuditedOrUnaudited contextRef="dcur7"/>
+  <uk-bus:EntityTradingStatus contextRef="dcur4"/>
+
+  <!-- ===== NUMERIC FACTS (Balance Sheet) ===== -->
+  <uk-core:CalledUpShareCapitalNotPaidNotExpressedAsCurrentAsset contextRef="icur1" decimals="2" unitRef="GBP">0</uk-core:CalledUpShareCapitalNotPaidNotExpressedAsCurrentAsset>
+  <uk-core:FixedAssets contextRef="icur1" decimals="2" unitRef="GBP">10000</uk-core:FixedAssets>
+  <uk-core:CurrentAssets contextRef="icur1" decimals="2" unitRef="GBP">0</uk-core:CurrentAssets>
+  <uk-core:PrepaymentsAccruedIncomeNotExpressedWithinCurrentAssetSubtotal contextRef="icur1" decimals="2" unitRef="GBP">0</uk-core:PrepaymentsAccruedIncomeNotExpressedWithinCurrentAssetSubtotal>
+  <uk-core:Creditors contextRef="icur9" decimals="2" unitRef="GBP">50000</uk-core:Creditors>
+  <uk-core:NetCurrentAssetsLiabilities contextRef="icur1" decimals="2" unitRef="GBP">-50000</uk-core:NetCurrentAssetsLiabilities>
+  <uk-core:TotalAssetsLessCurrentLiabilities contextRef="icur1" decimals="2" unitRef="GBP">-40000</uk-core:TotalAssetsLessCurrentLiabilities>
+  <uk-core:NetAssetsLiabilities contextRef="icur1" decimals="2" unitRef="GBP">-40000</uk-core:NetAssetsLiabilities>
+  <uk-core:Equity contextRef="icur1" decimals="2" unitRef="GBP">-40000</uk-core:Equity>
+  <uk-bus:AverageNumberEmployeesDuringPeriod contextRef="CY" decimals="0" unitRef="GBP">0</uk-bus:AverageNumberEmployeesDuringPeriod>
+
+</xbrl>

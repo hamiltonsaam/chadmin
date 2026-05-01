@@ -1,0 +1,349 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f5f7fb;
+    color: #172033;
+}
+
+.wrap {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 24px;
+}
+
+.wrap.wrap-dashboard {
+    max-width: 1400px;
+}
+
+.wrap.wrap-login {
+    max-width: 400px;
+    margin-top: 100px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 10px 24px rgba(18, 38, 63, 0.08);
+}
+
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 10px 24px rgba(18, 38, 63, 0.08);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 20px;
+    align-items: start;
+}
+
+.company-item {
+    padding: 12px;
+    border: 1px solid #e3e8f0;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    background: #fbfcfe;
+}
+
+.muted {
+    color: #66738a;
+    font-size: 13px;
+}
+
+.btn,
+button {
+    display: inline-block;
+    border: 0;
+    border-radius: 10px;
+    padding: 10px 14px;
+    text-decoration: none;
+    cursor: pointer;
+    background: #1f6feb;
+    color: #fff;
+    font-weight: 600;
+}
+
+.btn.light {
+    background: #eef3fb;
+    color: #172033;
+}
+
+.btn.green {
+    background: #15803d;
+}
+
+.btn.orange {
+    background: #c2410c;
+}
+
+.btn.red {
+    background: #dc2626;
+}
+
+.btn.gray {
+    background: #475467;
+}
+
+input,
+select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 12px;
+    border: 1px solid #d6deea;
+    border-radius: 10px;
+    margin-top: 6px;
+}
+
+label {
+    display: block;
+    margin-bottom: 12px;
+    font-size: 14px;
+}
+
+.flash-ok {
+    background: #e8fff0;
+    color: #166534;
+    padding: 12px 14px;
+    border-radius: 12px;
+    margin-bottom: 16px;
+}
+
+.flash-error {
+    background: #fff1f2;
+    color: #b42318;
+    padding: 12px 14px;
+    border-radius: 12px;
+    margin-bottom: 16px;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.small-links a {
+    margin-right: 8px;
+    font-size: 13px;
+}
+
+.table-wrap {
+    overflow-x: auto;
+    width: 100%;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    table-layout: fixed;
+}
+
+th,
+td {
+    padding: 10px;
+    border-bottom: 1px solid #e7edf5;
+    text-align: left;
+    vertical-align: top;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.result-box {
+    border: 1px solid #e7edf5;
+    border-radius: 12px;
+    padding: 12px;
+    margin-bottom: 10px;
+    background: #fbfcfe;
+}
+
+.actions a {
+    margin-right: 8px;
+    margin-top: 8px;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 20px;
+}
+
+.info-box {
+    border: 1px solid #e7edf5;
+    border-radius: 12px;
+    padding: 14px;
+    background: #fbfcfe;
+}
+
+.info-title {
+    font-size: 12px;
+    color: #66738a;
+    margin-bottom: 6px;
+}
+
+.info-value {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.date-yellow {
+    color: #ca8a04;
+    font-weight: 700;
+}
+
+.date-red {
+    color: #b42318;
+    font-weight: 700;
+}
+
+.badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.badge-green {
+    background: #e8fff0;
+    color: #166534;
+}
+
+.badge-red {
+    background: #fff1f2;
+    color: #b42318;
+}
+
+.badge-brown {
+    background: #f5eadf;
+    color: #8a4b08;
+}
+
+.badge-gray {
+    background: #eef3fb;
+    color: #475467;
+}
+
+.filters {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: end;
+    margin-bottom: 16px;
+}
+
+.email-text {
+    word-break: break-all;
+}
+
+.table-companies {
+    min-width: 1900px;
+}
+
+.col-company-number { width: 120px; }
+.col-company-name { width: 180px; }
+.col-owner { width: 220px; }
+.col-address { width: 280px; }
+.col-status { width: 130px; }
+.col-accounts { width: 140px; }
+.col-statement { width: 170px; }
+.col-officers { width: 260px; }
+.col-pscs { width: 220px; }
+.col-category { width: 140px; }
+.col-owner { width: 200px; }
+
+.actions-bar {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.company-link {
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.name-default {
+    color: #172033;
+}
+
+.name-green {
+    color: #166534;
+}
+
+.name-yellow {
+    color: #ca8a04;
+}
+
+.name-red {
+    color: #b42318;
+}
+
+.name-brown {
+    color: #8a4b08;
+}
+
+.page-title {
+    margin: 0 0 6px 0;
+}
+
+.mt-8 {
+    margin-top: 8px;
+}
+
+.mt-10 {
+    margin-top: 10px;
+}
+
+.mt-16 {
+    margin-top: 16px;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+.hr-soft {
+    margin: 20px 0;
+    border: 0;
+    border-top: 1px solid #e8edf5;
+}
+
+.fw-700 {
+    font-weight: 700;
+}
+
+header.dashboard-header {
+    background: #fff;
+    padding: 16px 24px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 12px rgba(18, 38, 63, 0.05);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-content nav a {
+    margin-left: 16px;
+    text-decoration: none;
+    color: #1f6feb;
+    font-weight: 600;
+}
+
+h1, h2 {
+    color: #172033;
+}
